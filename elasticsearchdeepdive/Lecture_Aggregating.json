@@ -1,0 +1,224 @@
+# check ES cluster status
+GET /
+
+# check nodes
+GET _cat/nodes?v
+
+# check indicies
+GET _cat/indices?v
+
+# show index info
+GET bank
+
+# invalid to use terms in bucket aggs
+GET bank/_search
+{
+  "aggs": {
+    "accounts_per_state": {
+      "terms": {
+        "field": "state",
+        "size": 10
+      }
+    }
+  }
+}
+
+# bucket agg accounts per state, lists all documents
+GET bank/_search
+{
+  "aggs": {
+    "accounts_per_state": {
+      "terms": {
+        "field": "state.keyword",
+        "size": 10
+      }
+    }
+  }
+}
+
+# bucket agg accounts per state, list no documents, only the agg
+GET bank/_search?size=0
+{
+  "aggs": {
+    "accounts_per_state": {
+      "terms": {
+        "field": "state.keyword",
+        "size": 10
+      }
+    }
+  }
+}
+
+# average balance
+GET bank/_search?size=0
+{
+ "aggs": {
+   "average_balance": {
+     "avg": {
+       "field": "balance"
+     }
+   }
+ } 
+}
+
+# max balance
+GET bank/_search?size=0
+{
+ "aggs": {
+   "max_balance": {
+     "max": {
+       "field": "balance"
+     }
+   }
+ } 
+}
+
+# min balance
+GET bank/_search?size=0
+{
+ "aggs": {
+   "min_balance": {
+     "min": {
+       "field": "balance"
+     }
+   }
+ } 
+}
+
+# average balance per state
+GET bank/_search?size=0
+{
+  "aggs": {
+    "per_state": {
+      "terms": {
+        "field": "state.keyword",
+        "size": 10
+      }, 
+      "aggs": {
+        "average_balance": {
+          "avg": {
+            "field": "balance"
+          }
+        }
+      }
+    }
+  }
+}
+
+# average balance per state, order by average balance desc
+GET bank/_search?size=0
+{
+  "aggs": {
+    "per_state": {
+      "terms": {
+        "field": "state.keyword",
+        "size": 10,
+        "order": {
+          "average_balance": "desc"
+        }
+      }, 
+      "aggs": {
+        "average_balance": {
+          "avg": {
+            "field": "balance"
+          }
+        }
+      }
+    }
+  }
+}
+
+# total balance per state, order by total balance desc
+GET bank/_search?size=0
+{
+  "aggs": {
+    "per_state": {
+      "terms": {
+        "field": "state.keyword",
+        "size": 10,
+        "order": {
+          "total_balance": "desc"
+        }
+      }, 
+      "aggs": {
+        "total_balance": {
+          "sum": {
+            "field": "balance"
+          }
+        }
+      }
+    }
+  }
+}
+
+# number of accounts (docs) per age range
+# to is inclusive, from is exclusive
+GET bank/_search?size=0
+{
+  "aggs": {
+    "age_bracket": {
+      "range": {
+        "field": "age", 
+        "ranges": [
+          {
+            "from": 18,
+            "to": 30
+          },
+          {
+            "from": 30,
+            "to": 40
+          },
+          {
+            "from": 40,
+            "to": 50
+          }
+          ]
+      }
+    }
+  }
+}
+
+# number of accounts (docs) per age range, with average balance
+GET bank/_search?size=0
+{
+  "aggs": {
+    "age_bracket": {
+      "range": {
+        "field": "age", 
+        "ranges": [
+          {
+            "from": 18,
+            "to": 30
+          },
+          {
+            "from": 30,
+            "to": 40
+          },
+          {
+            "from": 40,
+            "to": 50
+          }
+          ]
+      }, 
+      "aggs": {
+        "average_balance": {
+          "avg": {
+            "field": "balance"
+          }
+        }
+      }
+    }
+  }
+}
+
+# unique count of employers
+GET bank/_search?size=0
+{
+  "aggs": {
+    "number_of_employers": {
+      "cardinality": {
+        "field": "employer.keyword"
+      }
+    }
+  }
+}

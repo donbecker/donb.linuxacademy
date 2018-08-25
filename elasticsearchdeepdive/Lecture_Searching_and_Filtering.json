@@ -1,0 +1,128 @@
+# get status of ES
+GET /
+
+# list nodes
+GET _cat/nodes?v
+
+# list indicies
+GET _cat/indices?v
+
+# list bank index
+GET bank
+
+# search for all
+GET bank/_search?q=*
+
+# search all for PA
+GET bank/_search?q=PA
+
+# search state for PA
+GET bank/_search?q=state:PA
+
+# search address for main
+GET /bank/_search
+{
+  "query": {
+    "match": {
+      "address": "main"
+    }
+  }
+}
+
+# search address for street
+GET /bank/_search
+{
+  "query": {
+    "match": {
+      "address": "street"
+    }
+  }
+}
+
+# search address for street, show all 385 hits
+GET /bank/_search?size=385
+{
+  "query": {
+    "match": {
+      "address": "street"
+    }
+  }
+}
+
+# term search for gender via keyword
+GET /bank/_search
+{
+  "query" : {
+    "term": {
+      "gender.keyword": {
+        "value": "F"
+      }
+    }
+  }
+}
+
+# search address for exact match using term search
+GET bank/_search 
+{
+  "query": {
+    "term": {
+      "address.keyword": {
+        "value": "171 Putnam Avenue"
+      }
+    }
+  }
+}
+
+# search addresses with 'street' in address, gender term search for female
+GET bank/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "address": "street"
+          }
+        }, 
+        {
+          "term": {
+            "gender.keyword": {
+              "value": "F"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+# search addresses with 'street' in address, gender term search for female
+# filter for only state PA
+GET bank/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "address": "street"
+          }
+        }, 
+        {
+          "term": {
+            "gender.keyword": {
+              "value": "F"
+            }
+          }
+        }
+      ], 
+        "filter": {
+          "term": {
+            "state.keyword": {
+              "value": "PA"
+            }
+          }
+      }
+    }
+  }
+}

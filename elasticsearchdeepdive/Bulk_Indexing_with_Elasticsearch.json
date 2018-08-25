@@ -1,0 +1,45 @@
+## via Kibana Dev Console
+
+# get all
+GET _search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+# create logs index
+PUT /logs
+{
+  "settings": {
+    "number_of_replicas": 0,
+    "number_of_shards": 1
+  }, 
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+# verify logs
+GET logs
+
+## via ssh to elasticsearch server
+
+# pull logs file from Git
+curl -O https://raw.githubusercontent.com/linuxacademy/content-elasticsearch-deep-dive/master/sample_data/logs.json
+
+# index the logs file
+curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/_bulk?pretty' --data-binary @logs.json
+
+# verify indexing
+curl -XGET "http://localhost:9200/_cat/indices?v"
