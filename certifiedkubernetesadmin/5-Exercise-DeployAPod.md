@@ -28,7 +28,19 @@ spec:
 4. Write yaml for a pod that runs the nginx image
     * nginx-pod.yaml
 ```
-
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
 ```
 5. Run the nginx-pod.yaml file
+    * `kubectl create -f nginx-pod.yaml`
 6. Delete the nginx pod
+    * `kubectl delete pod nginx`
