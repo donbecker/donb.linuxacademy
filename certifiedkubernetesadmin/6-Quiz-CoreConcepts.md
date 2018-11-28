@@ -131,8 +131,7 @@ Is unencrypted and therefore unsafe to run over public networks.
 Explanation
 It's a fairly simple process to encrypt the streams using TLS.
 
-Further Reading
-https://linuxacademy.com/cp/courses/lesson/course/1412/lesson/1/module/155
+Source: https://kubernetes.io/docs/concepts/architecture/master-node-communication/#apiserver-to-nodes-pods-and-services
 
 9. What does a pod represent in a Kubernetes cluster?
 
@@ -148,8 +147,7 @@ A running process
 Explanation
 Pods are the running containers in a Kubernetes cluster.
 
-Further Reading
-https://linuxacademy.com/cp/courses/lesson/course/1412/lesson/1/module/155
+Source: https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/#understanding-pods
 
 10. Usually, when submitting a Kubernetes API call, data is sent in which format? (Select all that apply)
 
@@ -182,8 +180,7 @@ Correct answer
 Explanation
 The API server, by default, listens on port 443, the secure HTTP port.
 
-Further Reading
-https://linuxacademy.com/cp/courses/lesson/course/1412/lesson/1/module/155
+Source: https://kubernetes.io/docs/concepts/architecture/master-node-communication/#cluster-to-master
 
 12. Communications between the apiserver and the kubelet on the cluster nodes are used for all but which of the following?
 
