@@ -4,6 +4,30 @@ Domain 4: High Availability and Elasticity
 ==============================================================================================================================================================
 
 
+8.
+You have an Auto Scaling group with 2 AZs. One AZ has 4 EC2 instances and the other has 2 EC2 instances. None of the instances are protected from scale in. Based on the default Auto Scaling termination policy what will happen?
+
+A. Auto Scaling selects an instance to terminate randomly .
+
+B. Auto Scaling terminates which unprotected instances are closest to the next billing hour.
+
+* C. Auto Scaling will select the AZ with 4 EC2 instances and terminate an instance.
+
+D. Auto Scaling will terminate unprotected instances in the Availability Zone with the oldest launch configuration.
+
+
+5.
+You have received an alarm notification that your RDS DB instance is hovering between 70 and 100 % utilization. You determine that you need to scale your DB tier. Your application is very read heavy. What steps can you take? Choose 2
+
+A. Convert to a DynamoDB back end
+
+* B. Add RDS DB instances to shard your data set
+
+C. Create an Auto Scaling Group of RDS instances
+
+* D. Add Read Replicas to offload some read traffic
+
+
 Question 73 of 80
 Multi-answer: Select 2
 You manage the operations of a medium size application accepting connections from 1000's of IOT devices. The application uses a number of DynamoDB tables, but one specifically is used by the IOT devices once every 15 minutes to store 'heartbeat' information - consisting of a device_id and a timecode. The table is currently set to 5000WCU to cope with the peak usage of these heartbeat data blobs. The business finance manager has approached you to reduce costs and the heartbeat table is one area you consider. Which options below offer a 'possible' solution to reducing costs (note. each would need to be investigated in detail to confirm, before implementation)
@@ -384,9 +408,208 @@ D
 Update the AWS CloudFormation template that contains the launch configuration with the new C3 instance type. Run a stack update with the updated template, and Auto Scaling will then update the instances one at a time with the new instance type.
 
 
+11.
+When a scale out event occurs, the Auto Scaling group launches the required number of EC2 instances using its assigned launch configuration. What instance state do these instances start in?
+
+A. InService
+
+* B. Pending
+
+C. Pending:wait
+
+D. Terminating
+
+
+13.
+You have a web application on an Auto Scaling Group of EC2 instances backed by an RDS database that was deployed using CloudFormation, Due to recent news events you are expecting traffic to triple. Your recommendation of going to larger EC2 instances has been approved, You need to deploy the new instances while minimizing downtime. How can you do this?
+
+A. Update the CloudFormation template with the new EC2 instances. Perform a Stack update using the new template.
+
+* B. Update the CloudFormation template with the new EC2 instances. Add an UpdatePolicy attribute to your auto scaling group and add AutoScalingRollingUpdate. Perform a Stack update using the new template.
+
+C. Update your Launch Configuration with the new instance type and the instances will be updated one by one.
+
+D. Create an OpsWorks Stack matching the specifications of your CloudFormation stack. Perform a Blue/Green deployment from the old stack to the new stack.
+
+
+14.
+You have a web app in an Auto Scaling Group behind a load balancer. Your application loads are sometimes taking too long and in those cases are not ready for use. You have decided to hold off on implementing lifecycle hooks. You want to try other methods to improve scaling before using Lifecycle Hooks. What else can you do?
+
+A. Take steps to streamline your application load time.
+
+* B. Pre-Bake an AMI with the application already configured. Create a new Launch Configuration and attach it to the Auto Scaling Group.
+
+C. Pre-warm your load balancer.
+
+D. Use CloudFormation Templates to build your environment and add Wait states to allow your app to load properly.
+
+
+15.
+You are a DevOps engineer for a major healthcare company and your supervisor has asked you to create a rolling deployment solution that is cost-effective with minimal downtime. How should you achieve this? Choose two:
+
+* A. Use update stack policies with CloudFormation to deploy new code.
+
+B. Re-deploy your application using a CloudFormation template to deploy Elastic Beanstalk.
+
+C. After each stack is deployed, tear down the old stack.
+
+* D. Re-deploy with a CloudFormation template, define update policies on Auto Scaling groups in your CloudFormation template.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ==============================================================================================================================================================
 Domain 3: Security, Governance, and Validation
 ==============================================================================================================================================================
+
+
+18.
+You have a group of EC2 instances in an Auto Scaling Group behind a Load Balancer. You have added an HTTPS Listener to perform encryption and decryption on your Load Balancer. What must you deploy on the Listener?
+
+A. One SSL Certificate per instance.
+
+B. An IAM Role for SSL
+
+C. A Security Group.
+
+* D. One SSL Certificate
+
+
+17.
+You are going to use IAM Roles for your applications. The roles, attached to instances, will allow your applications to make requests on your behalf. What is true of IAM Roles and instance?
+
+A. You can attach multiple IAM roles to a single instance, but you cannot attach a single IAM role to multiple instances.
+
+* B. You cannot attach multiple IAM roles to a single instance, but you can attach a single IAM role to multiple instances.
+
+C. You cannot attach multiple IAM roles to a single instance, and you cannot attach a single IAM role to multiple instances.
+
+D. You can attach multiple IAM roles to a single instance, and you can attach a single IAM role to multiple instances.
+
+
+15.
+You are working from the CLI with IAM Roles. But you also have the AWS Management Console open to view existing IAM Roles. You are starting an EC2 instance in the Management Console and check the drop-down for IAM Roles. From the drop-down, you copy a name and try to perform a CLI command with the role you got from the drop-down. But after executing the command you get a message indicating that the role does not exist. What could be the problem?
+
+A. You mistyped the role name.
+
+B. You can't work with roles from the CLI.
+
+* C. The dropdowns contain Instance Profiles IAM Roles.
+
+D. You do not have the permissions to work with that role.
+
+
+13.
+You have assigned your team member John to perform backups within the organization and he needs access to an S3 Bucket called Backups. After a while, you decide that you want two more team members to have access to perform backups. How can you give this access in a way that makes it easier to manage and maintain?
+
+* A. Create an IAM Group for backups and place all team members you want to give this access in the group.
+
+B. Create a role for backups and give each member access to this role.
+
+C. Give the new team members the same access to the bucket as you gave John.
+
+D. Create a cross-account access between John and the two team members.
+
+
+11.
+You decide to start storing access logs for your Elastic Load Balancer in an S3 Bucket. After creating the S3 Bucket, what other steps are needed? Choose 2 Answers
+
+* A. Enable Access Logs on the load balancer to go to your S3 bucket.
+
+B. Add an HTTPS Listener on your Load Balancer.
+
+C. Create an IAM Role.
+
+* D. Attach a Bucket Policy to your bucket.
+
+
+10.
+Your business was recently audited and the process identified one major problem within your IT platform - logging. The audit team identified a major risks that application logging was all locally performed in silos - no log backups, authenticity checking or protection occurred as a matter of process. You have been tasked to identify a number of changes which can be implemented within the environment to ensure these issues can be marked as fixed on the next audit.
+
+Which of the following options are good solutions.
+
+A. All EC2 instances come with CloudWatch logs pre-installed - configure this agent via a EC2 Deploy command to log data to CloudWatch
+
+B. Create an S3 bucket in an alternative region from existing accounts. Configure all AWS products are services to log to this S3 bucket. The region separation will protect the data in the bucket if other regions are exploited.
+
+* C. Utilise a multi-account strategy. Configure CloudWatch to stream logs into a isolated AWS account used only for logging and auditing. Ensure that access rights and logins to this secondary account are not the same as any existing AWS accounts.
+
+* D. Ensure that all EC2 instances running any applications have a CloudWatch logs agent installed.
+
+E. Enable AWS CloudWatch, AWS CloudTrail and AWS Config - all are disabled by default on all AWS Accounts.
+
+
+6.
+After a recent audit, you have been asked to identify some potential ways to detect change to products and services within an AWS account - specifically those which breach specific organisational security policies and guidelines.
+
+A. On a daily, weekly and monthly basis review the AWS Billing reports which show a full overview of configuration of all billed resources.
+
+* B. Use AWS Config to define states that certain AWS Products and services should be in. Generate a notification to an SNS topic monitored by operations staff if any services or instances of services breach compliance.
+
+* C. Ensure AWS CloudTrail is enabled and configured within the AWS account. Configure delivery of CloudTrail to AWS CloudWatch. Using a combination of 'Log Metric Filters', alarms, Lambda and SNS - configure notifications to be delivered to operations staff as security events occur.
+
+D. Configure 'Desired State' entities within each service specifically and notify via SES if products breach this state.
+
+
+5.
+You work as a DevOps engineer in a large software developer. The business runs a set of automated tests every time new code is committed to their repository. Environments consist of a MSSQL Database, am application server, an S3 bucket - all within a dedicated VPC. Environments are sometimes deployed for sales and/or pre-sales functions and needs to be done in an automated way. You have designed a CloudFormation template which is deployed by an automation server when required but you need to complete one final security requirement. You need to ensure the S3 bucket is only accessible from within the VPC the application is deployed into.
+
+Which of the following is a valid solution.
+
+A. Create an IAM policy using Cloud Formation and link this policy to the VPC which it also creates. Add policy items which allow access to the S3 bucket from the VPC and Deny world read/write
+
+* B. Create the S3 bucket as normal, but additionally create a VPC endpoint for access to S3. Use CloudFormation to create a bucket policy using the "aws:sourceVpce" attribute to lock access to the S3 bucket to the VPC CloudFormation creates.
+
+C. Create the S3 bucket as a VPC resource rather than a public one
+
+D. Within the CloudFormation template use the "Regionlock" : internal directive to ensure that the S3 bucket can only be used within the internal region (VPC) it's deployed into.
+
+
+1.
+You are responsible for SecOps and DevOps within your company. You manage a very active AWS account with 100's of globally distributed administrators. Resources within the account fall into two main categories of importance - those which are highly sensitive production resources, and those belonging to non production workloads (test, dev and QA). You have been tasked with ensuring that the production resources are controlled such that any changes to those resources are visible and if necessary able to be corrected automatically.
+
+Which of the following are valid suggestions you can make to your CIO.
+
+* A. Create AWS Config rules on any critical resources and invoke AWS Lambda functions if these rules identify non-compliant resources. The lambda function would run, identify, notify and optionally correct any unauthorised changes.
+
+B. Create AWS CloudFormation which create change-sets for the critical resources within the account.
+
+C. Create automated Cloudtrail actions using the CloudTrail console. Set these automated rules to invoke an AWS Config action to regress any changes performed on the production resources.
+
+D. Utilise the automation features of AWS Shield to prevent access to critical resources within the AWS account.
 
 
 Question 41 of 80
@@ -740,9 +963,137 @@ D
 You can't. The data has to be encrypted by the instances.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ==============================================================================================================================================================
 Domain 2: Monitoring, Metrics, and Logging
 ==============================================================================================================================================================
+
+
+19.
+In a recent deployment of your application you created a new AMI. Your application has an Auto Scaling group of four EC2 instances behind an Elastic Load Balancer. Your Auto Scaling group was updated with a new launch configuration that refers to the updated AMI. During the deployment, customers complained that they were receiving several errors even though all instances passed the ELB health checks. You go to check the ELB access logs and they are empty. Why could this be? Choose the best answer.
+
+A. ELB Access logs are only available for 2 weeks.
+
+B. You do not have the appropriate permissions to access the logs.
+
+C. You do not have your CloudWatch metrics correctly configured.
+
+* D. Access logging is an optional feature of Elastic Load Balancing that is disabled by default
+
+
+17.
+You have EC2 instances in an Auto Scaling Group behind and Elastic Load Balancer. The instances have EBS volumes and you need to back up these instances from the CLI. Which command would you call?
+
+* A. ec2 create-snapshot
+
+B. ec2 create-backup
+
+C. You can not backup EBS volumes from the command line.
+
+D. ec2 create-volume
+
+10.
+You have configured the following AWS services: Auto Scaling group, Elastic Load Balancer, and EC2 instances. Your supervisor has requested that you terminate an instance when CPU utilization is less than 40%. How can you do this?
+
+A. Set up email notification via SNS when CPU utilization is less than 40%. Then modify the Auto Scaling group accordingly.
+
+* B. Create a CloudWatch alarm to send a notification to the Auto Scaling group when the aggregated CPU utilization is less than 40%. Also configure the Auto Scaling policy to remove one instance.
+
+C. Use Elastic Load Balancing Access Logs to monitor CPU and Auto Scaling policy to remove the instances.
+
+D. Set up email notification via SNS when CPU utilization is less than 40%. Then modify the Auto Scaling group accordingly.
+
+
+8.
+You have a customer-facing application running on multiple M3 instances in two AZs. These instances are in an Auto Scaling group configured to scale up when load increases. After taking a look at your CloudWatch metrics, you realize that during specific times every single day, the Auto Scaling group has a lot more instances than it normally does. Despite this, one of your largest customers is complaining that the application is very slow to respond during those time periods, every day.
+
+The application is reading and writing to a DynamoDB table which has 400 Write Capacity Units and 400 Read Capacity Units. The primary key is the company ID, which is used by your clients to retrieve their data, and the table is storing roughly 20 TB of data.
+
+Which solution would solve the issue in a scalable and cost-effective manner?
+
+A. Double the number of read and write capacity units, because the DynamoDB table is being throttled when customers from the same company all use the table at the same time.
+
+* B. Use data pipelines to migrate your DynamoDB table to a new DynamoDB table that uses more evenly distributed partition keys.
+
+C. DynamoDB is not a good solution for this use-case. Instead, create a data pipeline to move data from DynamoDB to Amazon RDS, which is more suitable for this.
+
+D. Add a caching layer in front of the web application with ElastiCache Memcached or Redis.
+
+
+5.
+You are the operations engineer for a medium sized application provider. You are currently working on managing the DynamoDB tables for the application and come across an error on one of your tables 'ProvisionedThroughputExceededException'. You increase the WCU value on the table from 1000 to 1500, the amount agreed with management but you still receive a 'ProvisionedThroughputExceededException' error. You review the CloudWatch logs and can see the writes to the table and below the WCU allocated ... what should be your next step to resolve the issue?
+
+A. Your WCU changes are not being applied - immediately, WCU changes take 45-60 minutes to perform the partition changes.
+
+B. You have a LSI which has no WCU allocated to it - this is causing throttling
+
+* C. You have a GSI which has insufficient WCU allocated to it - this is the cause of the throttling
+
+D. You performance buffer is empty, wait a while or increase the WCU further to resolve the issue.
+
+
+4.
+You are hosting a web application on web servers in an Auto Scaling Group. You are using custom metric data and want to capture the custom metric data, and store it without losing any information as a server scales down. What can you do?
+
+* A. Bootstrap your instances with the CloudWatch Logs agent. Create a CloudWatch Log Group and create the custom metrics you need. Stream this information to CloudWatch.
+
+B. Create a CloudWatch Logs Group which streams metric data to CloudWatch.
+
+C. Create a Kinesis Stream and send the data to EMR. From EMR you can stream the data to an S3 bucket for long term storage.
+
+D. Log data from EC2 instances are automatically streamed to CloudWatch.
+
 
 Question 70 of 80
 Single-answer
@@ -1087,9 +1438,116 @@ D
 Implement CloudTrail monitoring that checks the size of the queue and triggers an Auto Scaling scale out or scale in event depending on the size of the queue. The bigger the breach, the more instances we add (and vice versa).
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ==============================================================================================================================================================
 Domain 1: Continuous Delivery and Process Automation
 ==============================================================================================================================================================
+
+
+20.
+You’re tasked with launching EC2 instances from a CloudFormation template that need to have Nginx and PHP-FPM installed to serve your PHP application. You declared the instance properties and pass in userData to install and configure Nginx and PHP-FPM. You notice that CloudFormation has registered the instances as created before the software is installed and configured and has completed the stack creation before everything was installed. How can you prevent this?
+
+* A. Use a CreationPolicy and associate it with the corresponding resource in your stack. This will prevent that resource's status from reaching CREATE_COMPLETE until the Creation Policy receives the required number of signals. Then signal back using helper scripts. CloudFormation will only invoke the CreationPolicy once the associated resource gets created.
+
+B. Use a CreationPolicy and associate it with the corresponding resource in your stack. This will automatically prevent that resource's status from reaching CREATE_COMPLETE until the resource has been configured and installed. CloudFormation will only invoke the CreationPolicy once the associated resource gets created.
+
+C. Use the "MinSuccessfulInstancesPercent" property and specify the percentage of instances in an Auto Scaling update that need to signal for the update to succeed.
+
+D. Use a WaitPolicy and associate it with the corresponding resource in your stack. This will prevent that resource's status from reaching CREATE_COMPLETE until the Creation Policy receives the required number of signals. Then signal back using helper scripts. CloudFormation will only invoke the WaitPolicy once the associated resource gets created.
+
+
+18.
+Select the option with order of precedence from least to highest for Elastic Beanstalk.
+
+A. 1) Saved configurations, 2) .ebextension configuration files, 3) settings applied directly to the environment via the console, CLIs, or SDKS.
+
+B. 1) .ebextension configuration files, 2) settings applied directly to the environment via the console, CLIs, or SDKS, 3) saved configurations,
+
+C. 1) Settings applied directly to the environment via the console, CLIs, or SDKS, 2) saved configurations, 3) .ebextension configuration files.
+
+* D. 1) .ebextension configuration files, 2) saved configurations, 3) settings applied directly to the environment via the console, CLIs, or SDKS .
+
+
+16.
+You have a Node.js application and need to deploy it in the simplest way possible since many of your developers do not have any experience with AWS. Which tool shall you use?
+
+A. Custom deployment script + Lambda
+
+B. Elastic Beanstalk
+
+done Correct
+C. CloudFormation
+
+D. OpsWorks
+
+
+12.
+You have in the process of building a CloudFormation template for a new systems implementation. The pseudo code you have currently is this.
+
+{
+  "Resources" : {
+    "S3" : {
+      "Properties" : {
+        "BucketName" : {"Fn::Join" : ["", [{"Ref" : "RDS"},"-","DBBackups"]]}
+      }
+     },
+    "RDS" : {
+      "DependsOn" : "S3",
+      ...
+    }
+  }
+}
+You are receiving a dependancy error. What is a possible resolution to this problem
+
+A. Fn::Join isn't a valid function to use in this way - it's creating a dependancy on the Ref function.
+
+B. RDS Resources cannot be dependant on S3 resources - the two logical resources are incompatible
+
+C. The S3 object needs to wait for the RDS object before it can be created. The RDS object needs to wait for the S3 object. You have created a circular dependancy. Remove the DependsOn within the RDS resource if it's not required.
+
+done Correct
+D. DependsOn is an invalid CloudFormation option - dependancies are automatically evaluated as templates are processed.
 
 
 Question 7 of 80
@@ -1160,6 +1618,56 @@ Move your EC2 and environment build processes to CloudFormation and use, cfn-ini
 
 D
 Move your EC2 and environment build processes to CloudFormation and use the "UserData" and Fn:base64 function to pass desired-state config into EC2 instances at startup.
+
+
+7.
+You have a deployment pipeline that uses tools like Jenkins, Travis CI, and CodeShip. How can make sure you are deploying consistent versions of your application using OpsWorks?
+
+* A. Commit a new version of your code to a repository, which triggers your pipeline and uploads the tested code to Amazon S3 as an archive. From that point on, since that archive is our source for apps and cookbooks, all app deployments or cookbook updates will install the code from that archive file and every instance will have the same code.
+
+B. Run a Deploy command to deploy your application to a set of application server instances. The instances run recipes that deploy the application and any related files from its repository to the layer's instances.
+
+C. Commit a new version of your code to your git repository, which triggers your pipeline and uploads the tested code to a CodeCommit archive. From that point on, since that archive is your source for apps and cookbooks, all app deployments or cookbook updates will install the code from that archive file and every instance will have the same code.
+
+D. Run a ͞Configure ͞command to configure your application to a set of application server instances. The instances run recipes that deploy the application and any related files from its repository to the layer's instances.
+
+
+8.
+You are developing a cloud formation template - You have defined a VPC, Internet gateway, a subnet and you configure it to assign public IP's. You create an EC2 instance in the template and configure it to occupy the public subnet. When applying the template you notice an error, the EC2 instance fails to get a public IP. You also notice that at the point when the instance is created, you don't have the gateway and the attachment.
+
+What is the cause and how can you fix?
+
+* A. Use a DependsOn attribute and specify that the creation of a specific resource follows another. After you add a DependsOn attribute to a resource, that resource is created only after the creation of the resource specified in theDependsOn attribute.
+
+B. Use a CreationPolicy and associate it with the corresponding resource in the stack. This will eliminate any dependencies between resources.
+
+C. Declare a WaitCondition on the resource that is dependent on the other resource. This will ensure the dependency has been established and the stack can build.
+
+D. Use a Custom Resource attribute and specify that the creation of a specific resource follows another. After you add a CustomResource attribute to a resource, that resource is created only after the creation of the resource specified in the DependsOn attribute.
+
+
+9.
+You've been tasked with improving the current deployment process by making it easier to deploy and reducing the time it takes. To do this, you create a continuous integration (CI) pipeline that builds AMIs. How can you build this in an automated manner that is also cost-effective and takes the least amount of time, considering that your team deploys 5 times a week?
+
+A. Dedicate an instance to this. Attach an EBS volume to that instance, download all of the code and dependencies to that volume, then call the CreateImage API to make an AMI out of that volume
+
+* B. Have the CI system launch a new instance, then bootstrap the code and dependencies on that instance, and create an AMI using the CreateImage API call.
+
+C. Use OpsWorks to launch an EBS-backed instance, then use a recipe to bootstrap the instance, and then have the CI system use the CreateImage API call to make an AMI from it.
+
+D. Upload the code and dependencies to Amazon S3, launch an instance, download the package from Amazon S3, then create the AMI with the CreateSnapshot API call.
+
+
+10.
+With multicontainer Docker environments we are required to include which file?
+
+A. Dockerrun.json
+
+B. .ebextensions
+
+C. Dockerfile
+
+* D. Dockerrun.aws.json
 
 
 Question 33 of 80
